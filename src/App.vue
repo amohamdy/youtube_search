@@ -1,14 +1,12 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <main class="container-fluid" id="app">
+    <Header/>
+    <router-view/>
+  </main>
 </template>
 
 <style lang="scss">
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -30,3 +28,14 @@
   }
 }
 </style>
+
+<script>
+import Header from './components/layout/Header.vue';
+
+export default {
+  components:
+  {
+    Header,
+  },
+};
+</script>
