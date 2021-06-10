@@ -1,5 +1,5 @@
 <template>
-  <router-link  :to="'/video/'+ item.videoId" class="card" :class="{'channel':item.id.kind.split('#')[1] == 'channel'}">
+  <router-link  :to="'/video/'+item.id.videoId" class="card" :class="{'channel':item.id.kind.split('#')[1] == 'channel'}">
     <div class="card__media">
         <img class="card-media-img" :src="item.snippet.thumbnails.high.url"
         alt="YouTube thumbnail">
@@ -27,7 +27,7 @@
                 </span>
               <!-- <span class="meta views">26k views</span> -->
               <span class="meta published">
-                {{item.snippet.publishedAt!=null?item.snippet.publishedAt:''}}
+                {{item.snippet.publishedAt | moment(" Do MMM  YYYY")}}
               </span>
           </div>
         </div>
@@ -38,9 +38,15 @@
   </router-link>
 </template>
 
+<script>
+export default {
+  props: ['item'],
+};
+</script>
+
 <style scoped lang="scss">
-  @import '../scss/mixins.scss';
-  @import '../scss/variables.scss';
+  @import '../../scss/mixins.scss';
+  @import '../../scss/variables.scss';
 
       .card {
         width:100%;
@@ -116,15 +122,8 @@
                 .meta{
                     margin-right:8px;
                     color:$gray-300;
-                    &:after{
-                        content:"•";
-                        margin:0 4px;
-                    }
-                    &:last-of-type{
-                        &:after{
-                            display: none;
-                        }
-                    }
+
+
                 }
             }
 
@@ -133,8 +132,4 @@
 
 </style>
 
-<script>
-export default {
-  props: ['item'],
-};
-</script>
+

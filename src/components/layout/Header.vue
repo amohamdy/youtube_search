@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import SearchForm from './SearchForm.vue';
+  import SearchForm from '../search/SearchForm.vue';
 
   export default{
     components:{
@@ -40,6 +40,7 @@
         position:fixed;
         z-index:999;
         top:0;
+        left:0;
     }
 
   &__inner{

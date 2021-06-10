@@ -7,6 +7,8 @@ import VueAxios from 'vue-axios'
 import './scss/base.scss';
 Vue.use(VueAxios, axios)
 Vue.config.productionTip = false;
+Vue.use(require('vue-moment'));
+
 
 new Vue({
   router,

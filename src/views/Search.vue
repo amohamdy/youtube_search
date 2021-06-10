@@ -14,7 +14,7 @@
 
 <script>
 import axios from 'axios'
-import CardItem from '../components/CardItem.vue';
+import CardItem from '../components/video/CardItem.vue';
 import Loader from '../components/layout/Loader.vue';
 
 export default {
@@ -28,7 +28,7 @@ export default {
       loadMore:false,
       nextPage:'',
       totalResults:'',
-      apiKey:'AIzaSyAV9QB6U-fWmof74zSqNOaNTo_itvkV_4I',
+      apiKey:this.$store.state.apiKey,
       pageLoading:false,
     };
   },
@@ -61,6 +61,7 @@ export default {
   computed:{
     searchText(){
       return this.$store.state.searchText;
+
     }
   },
   watch: {
@@ -77,14 +78,7 @@ export default {
   @import '../scss/mixins.scss';
 
   #search-result{
-    padding:2rem 0.5rem 4rem 0.5rem;
-    margin:1rem;
-    background-color:#fff;
-    position: relative;
-    min-height: 100vh;
-    @media screen and (min-width:768px){
-      padding:5rem 0 0 0;
-    }
+
     &.isLoading{
       @include display-flex(row,center,center);
     }

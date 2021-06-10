@@ -1,9 +1,12 @@
 <template>
     <form id="search-form">
         <div class=" search-form-input">
-            <span   span v-if="!isShow">{{searchText}}</span>
-            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="submitForm">
-            <button class="search-btn" @click.prevent="isShow = !isShow">
+            <!-- <span span v-if="!isShow">{{searchText}}</span> -->
+            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="submitForm" v-if="!smScreen">
+            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="submitForm" v-if="smScreen && isShow">
+            <span span v-if="!isShow && smScreen">{{searchText}}</span>
+
+            <button class="search-btn" @click.prevent="smScreen?isShow = !isShow:submitForm">
                 <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"
                 class="style-scope yt-icon" style="s
                 display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon">
@@ -19,13 +22,15 @@
 
 <script>
 export default {
-  name: 'Header',
+  name: 'SearchForm',
 
   props: ['totalResult'],
   data() {
     return {
       searchText: '',
       isShow: '',
+      windowWidth:window.innerWidth,
+      smScreen:'',
 
     };
   },
@@ -34,6 +39,22 @@ export default {
       this.isShow = false
       this.$store.dispatch('updateSearchValue',this.searchText)
     },
+    checkWindowSize(){
+      if(this.windowWidth > 768){
+        this.smScreen = false;
+      }else{
+        this.smScreen=true
+      }
+    },
+  },
+  watch:{
+    windowWidth:{
+      handler:'checkWindowSize',
+      immediate:true
+
+    }
+
+
   },
 
 };
@@ -65,7 +86,7 @@ export default {
           height:40px;
           padding:8px;
           display:block;
-            @media screen and (min-width:768px){
+          @media screen and (min-width:768px){
             height:100%;
             border:0;
             width:87%;
@@ -87,6 +108,7 @@ export default {
         .search-btn{
           background-color: transparent;
           border:0;
+          cursor: pointer;
           svg{
             width:30px !important;
             height:30px !important;
