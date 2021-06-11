@@ -1,16 +1,15 @@
 <template>
     <section id="related-videos">
-        <CardItem v-for="item in relatedVideos" :key="item.index" :item="item"/>
+        <VideoCard v-for="item in relatedVideos" :key="item.index" :item="item"/>
     </section>
-
 
 </template>
 
 <script>
-    import CardItem from './CardItem.vue';
+    import VideoCard from './VideoCard.vue';
     export default{
         components:{
-            CardItem
+            VideoCard
         },
         props:['apiKey', 'videoId'],
         data(){
@@ -23,8 +22,6 @@
          this.axios.get(url).then(res=>
          {this.relatedVideos=res.data.items;
          console.log(res.data)}).catch(err=>console.log(err))
-
-
         }
     }
 

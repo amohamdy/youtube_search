@@ -6,24 +6,25 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchText: null,
-    apiKey:'AIzaSyAV9QB6U-fWmof74zSqNOaNTo_itvkV_4I',
+    apiKey:'AIzaSyB_EfmkkjsF5hK4ycQo9HgMANvWqAimRIw',
+    pageLoading:false,
+    searchResults:''
 
   },
   mutations: {
-    setSearchValue(state, value) {
+    setSearchKeyword(state, value) {
       return (state.searchText = value)
     },
-  },
-  actions: {
-    updateSearchValue({ commit }, value) {
-      commit("setSearchValue", value);
+    setSearchResults (state, value) {
+      return(state.searchResults = value)
     },
+    setPageLoadingStatus (state, value) {
+      return(state.pageLoading = value)
+    },
+
   },
+
   modules: {
   },
-  // getters: {
-  //   searchText: state => {
-  //     return state.searchText
-  //   },
-  // },
+
 });

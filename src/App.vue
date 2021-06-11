@@ -1,8 +1,8 @@
 <template>
   <main class="container-fluid" id="app">
     <Header/>
-    <div class="container-fluid__inner">
-    <router-view/>
+    <div class="container-fluid__inner" id="main-wrapper">
+    <router-view :key="$route.fullPath"/>
 
     </div>
   </main>
@@ -16,6 +16,11 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  @media screen and (min-width:992px){
+  height: 100vh;
+overflow-y:scroll;
+  }
+
   &__inner{
     padding:2rem 0.5rem 4rem 0.5rem;
     margin:1rem;
@@ -43,5 +48,6 @@ export default {
   {
     Header,
   },
+
 };
 </script>

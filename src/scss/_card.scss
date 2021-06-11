@@ -1,0 +1,50 @@
+@import '../../scss/mixins.scss';
+@import '../../scss/variables.scss';
+
+    .card {
+      width:100%;
+      margin:0 auto 1rem;
+      @include display-flex(row,space-between,flex-start);
+      text-decoration:none;
+      color:inherit;
+      text-align: left;
+      @media screen and (min-width:768px){
+        width:70%;
+      }
+
+
+
+      &__media{
+        position: relative;
+        display:flex;
+        width:52%;
+        height:200px;
+        @media screen and (min-width:992px){
+          height:250px;
+        }
+        img{
+          object-fit: cover;
+          width:100%;
+        }
+
+      }
+
+      &__content{
+          width:46%;
+          height:100%;
+          @media screen and (min-width:768px){
+            padding-left:2rem;
+          }
+          .desc{
+              color:$gray-300;
+              line-height:1.5;
+              display:-webkit-box;
+              -webkit-line-clamp: 3;
+              -webkit-box-orient: vertical;
+              overflow: hidden;
+              text-overflow: ellipsis;
+
+          }
+
+      }
+    }

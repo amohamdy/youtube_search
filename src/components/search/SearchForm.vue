@@ -1,12 +1,11 @@
 <template>
     <form id="search-form">
         <div class=" search-form-input">
-            <!-- <span span v-if="!isShow">{{searchText}}</span> -->
-            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="submitForm" v-if="!smScreen">
-            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="submitForm" v-if="smScreen && isShow">
+            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="loadMoreResults" v-if="!smScreen">
+            <input type="search" v-model="searchText" placeholder="Search" @keydown.enter="loadMoreResults" v-if="smScreen && isShow">
             <span span v-if="!isShow && smScreen">{{searchText}}</span>
 
-            <button class="search-btn" @click.prevent="smScreen?isShow = !isShow:submitForm">
+            <button class="search-btn" @click.prevent="smScreen?isShow = !isShow:loadMoreResults">
                 <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false"
                 class="style-scope yt-icon" style="s
                 display: block; width: 100%; height: 100%;"><g class="style-scope yt-icon">
@@ -21,6 +20,8 @@
 </template>
 
 <script>
+  import generalMixin from "../../mixins/generalMixin";
+
 export default {
   name: 'SearchForm',
 
@@ -31,30 +32,35 @@ export default {
       isShow: '',
       windowWidth:window.innerWidth,
       smScreen:'',
+      apiKey:this.$store.state.apiKey
 
     };
   },
   methods: {
-    submitForm() {
-      this.isShow = false
-      this.$store.dispatch('updateSearchValue',this.searchText)
+    loadMoreResults() {
+      this.$store.commit("setPageLoadingStatus", true);
+      this.$store.commit("setSearchKeyword", this.searchText);
+
+      this.isShow = false;
+        if(this.$router.currentRoute.path != '/'){
+            this.$router.push({ name: 'Search' })
+        }
+        const url = `https://www.googleapis.com/youtube/v3/search?&q=${this.searchText}&maxResults=5&part=snippet&key=${this.apiKey}`;
+        this.axios.get(url).then((res) => {
+        this.$store.commit("setPageLoadingStatus", false);
+
+        this.$store.commit("setSearchResults", res.data);
+      }).catch(err=>console.log(err))
     },
-    checkWindowSize(){
-      if(this.windowWidth > 768){
-        this.smScreen = false;
-      }else{
-        this.smScreen=true
-      }
-    },
+
   },
+      mixins: [generalMixin],
+
   watch:{
     windowWidth:{
       handler:'checkWindowSize',
       immediate:true
-
     }
-
-
   },
 
 };

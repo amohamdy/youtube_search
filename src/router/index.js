@@ -2,6 +2,8 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Search from "../views/Search.vue";
 import VideoDetails from "../views/VideoDetails.vue";
+import ChannelDetails from "../views/ChannelDetails.vue";
+
 
 Vue.use(VueRouter);
 
@@ -16,7 +18,13 @@ const routes = [
     path: "/video/:id",
     name: "VideoDetails",
     component: VideoDetails,
-    props:true
+    props:true,
+  },
+  {
+    path: "/channel/:id",
+    name: "ChannelDetails",
+    component: ChannelDetails,
+    props:true,
 
   }
 
