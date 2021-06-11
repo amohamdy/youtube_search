@@ -1,23 +1,37 @@
 <template>
-  <nav class="main-nav">
-    <div class="main-nav__inner">
-      <img alt="YouTybe logo" class="yTube-logo" src="../../assets/YouTube.png">
-      <img alt="YouTybe logo" class="yTube-logo--white" src="../../assets/Daco_492.png">
+    <nav class="main-nav">
+      <div class="main-nav__inner">
+        <img alt="YouTybe logo" class="yTube-logo" src="../../assets/YouTube.png">
+        <img alt="YouTybe logo" class="yTube-logo--white" src="../../assets/Daco_492.png">
 
-      <SearchForm></SearchForm>
+        <SearchForm @submit-form="getAllSearchResults" ></SearchForm>
+      </div>
+    </nav>
 
-    </div>
-  </nav>
 
 </template>
 
 <script>
   import SearchForm from '../search/SearchForm.vue';
+  import generalMixin from "../../mixins/generalMixin";
+
 
   export default{
     components:{
-      SearchForm
-    }
+      SearchForm,
+    },
+    data(){
+      return{
+      apiKey:this.$store.state.apiKey,
+      }
+    },
+    computed:{
+      searchText(){
+        return this.$store.state.searchText
+      }
+    },
+    mixins: [generalMixin],
+
   }
 
 </script>
@@ -69,6 +83,10 @@
 
 
 }
+}
+.filters{
+  padding:1rem 1rem 0 1rem;
+  @include display-flex(row, flex-start,center)
 }
 
 </style>

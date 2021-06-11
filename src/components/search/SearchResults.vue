@@ -1,14 +1,18 @@
 <template>
-    <div class="content-wrapper content-wrapper__inner">
-          <article v-for="item in searchResultItems" :key="item.index">
-              <VideoCard :item="item" v-if="item.id.kind.split('#')[1] == 'video'"></VideoCard>
-              <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
-              <ChannelCard :item="item" v-else></ChannelCard>
-          </article>
-        <button v-if="searchResultItems.length<totalResults && !pageLoading &&smScreen" @click="loadMoreResults">
-            <span v-if="!loadMore">Show more items</span>
-            <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
-        </button>
+    <div class="content-wrapper content-wrapper__inner" >
+      <filterComponent :smScreen="smScreen" :total-results="totalResults"/>
+
+        <div class="search-results">
+            <article v-for="item in searchResultItems" :key="item.index">
+                <VideoCard :item="item" v-if="item.id.kind.split('#')[1] == 'video'"></VideoCard>
+                <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
+                <ChannelCard :item="item" v-else></ChannelCard>
+            </article>
+          <button v-if="searchResultItems.length<totalResults && !pageLoading &&smScreen" @click="loadMoreResults">
+              <span v-if="!loadMore">Show more items</span>
+              <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
+          </button>
+      </div>
     </div>
 
 </template>
@@ -19,35 +23,52 @@
   import PlaylistCard from '../playlist/PlaylistCard.vue';
   import ChannelCard from '../channel/ChannelCard.vue';
   import generalMixin from "../../mixins/generalMixin";
+  import FilterComponent from './FilterComponent.vue';
+
+
 
   export default {
     components: {
       PlaylistCard,
       VideoCard,
       ChannelCard,
+      FilterComponent
     },
     data() {
       return {
         loadMore:false,
-        nextPage:'',
-        totalResults:'',
+        nextPage:null,
+        totalResults:null,
         searchResultItems:'',
         apiKey:this.$store.state.apiKey,
-        pageLoading:'',
-        windowWidth:window.innerWidth,
+        pageLoading:null,
         smScreen:'',
+        windowWidth:window.innerWidth,
+
       };
     },
 
     methods: {
+
+
       // load more items
       loadMoreResults(){
         this.loadMore=true;
-        const url = `https://www.googleapis.com/youtube/v3/search?&q=${this.searchText}&maxResults=5&part=snippet&key=${this.apiKey}&pageToken=${this.nextPage}`;
+        const url = `https://www.googleapis.com/youtube/v3/search?&q=${this.searchText}&maxResults=5&part=snippet&key=${this.apiKey}&pageToken=${this.nextPage}&type=${this.type}&order=${this.order}`;
           this.axios.get(url).then((res) => {
             this.searchResultItems = [...this.searchResultItems,...res.data.items];
             this.loadMore=false;
         }).catch(err=>console.log(err))
+      },
+      setValues(){
+        if(this.$store.state.allSearchResults){
+          this.searchResultItems = this.$store.state.allSearchResults.items
+          this.totalResults = this.$store.state.allSearchResults.pageInfo.totalResults;
+          this.nextPage = this.$store.state.allSearchResults.nextPageToken;
+          this.pageLoading = this.$store.state.pageLoading;
+          console.log('hello')
+        }
+
       }
     },
 
@@ -55,26 +76,39 @@
       searchText(){
         return this.$store.state.searchText;
       },
-      searchResults(){
-        return this.$store.state.searchResults
+      allSearchResults(){
+        return this.$store.state.allSearchResults
+      },
+      type(){
+          return this.$store.state.typeFilter
+      },
+      order(){
+        return this.$store.state.orderFilter
       }
     },
-    mixins: [generalMixin],
+
+     mixins: [generalMixin],
+
 
     watch:{
-      searchText:function(){
-        console.log('hello')
-        this.searchResultItems=this.$store.state.searchResults.items
-        this.totalResults=this.$store.state.searchResults.pageInfo.totalResults;
-        this.nextPage =this.$store.state.searchResults.nextPageToken;
-        this.pageLoading=this.$store.state.pageLoading;
+      allSearchResults:{
+        handler:'setValues',
+        immediate:true
       },
+      type:{
+        handler:'getAllSearchResults',
+        deep:true
 
+      },
+      order:{
+        handler:'getAllSearchResults',
+        deep:true
+      },
       windowWidth:{
       handler:'checkWindowSize',
       immediate:true
-    }
     },
+    }
 
 
 

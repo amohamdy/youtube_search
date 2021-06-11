@@ -63,7 +63,7 @@ import PlaylistCard from '../components/playlist/PlaylistCard.vue';
         created(){
           this.getChannelDetail();
           this.getChannelPlaylists();
-        }
+        },
     }
 </script>
 

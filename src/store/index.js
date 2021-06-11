@@ -6,9 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchText: null,
-    apiKey:'AIzaSyB_EfmkkjsF5hK4ycQo9HgMANvWqAimRIw',
+    apiKey:'AIzaSyA59bgvVaJLFrL_-utKXIboO8qSqY_zdTg',
     pageLoading:false,
-    searchResults:''
+    allSearchResults:'',
+    typeFilter:null,
+    dateFilter:null,
+    orderFilter:"relevance"
 
   },
   mutations: {
@@ -16,10 +19,19 @@ export default new Vuex.Store({
       return (state.searchText = value)
     },
     setSearchResults (state, value) {
-      return(state.searchResults = value)
+      return(state.allSearchResults = value)
     },
     setPageLoadingStatus (state, value) {
       return(state.pageLoading = value)
+    },
+    setTypeValue (state, value) {
+      return(state.typeFilter = value)
+    },
+    setDateValue (state, value) {
+      return(state.dateFilter = value)
+    },
+    setOrderValue (state, value) {
+      return(state.orderFilter = value)
     },
 
   },
