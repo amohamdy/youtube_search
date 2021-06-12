@@ -45,8 +45,8 @@ import PlaylistCard from '../components/playlist/PlaylistCard.vue';
         methods:{
             getChannelDetail(){
                 const url=`https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${this.id}&key=${this.apiKey}`
-            this.axios.get(url).then(res=>{
-                console.log('channel'+res)
+                this.axios.get(url).then(res=>{
+                console.log(res)
                 this.channelDetails=res.data.items[0]
 
             }).catch(err=>console.log(err))
@@ -63,7 +63,7 @@ import PlaylistCard from '../components/playlist/PlaylistCard.vue';
         created(){
           this.getChannelDetail();
           this.getChannelPlaylists();
-        },
+        }
     }
 </script>
 

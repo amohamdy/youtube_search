@@ -1,35 +1,39 @@
 <template>
     <div class="video-details">
-            <section class="video-detail-inner">
-                <div class="video-frame">
-                    <iframe width="420" height="315"
-                    :src="'https://www.youtube.com/embed/'+this.id">
-                    </iframe>
-                </div>
-                <div class="video-frame-details">
-                    <div class="top">
-                        <div v-if="videoDetails.snippet.title">
-                            <h2>{{videoDetails.snippet.title != 'NULL' ? videoDetails.snippet.title : '' }}</h2>
-                            <span class="base">{{videoDetails.statistics.viewCount != 'NULL' ? videoDetails.statistics.viewCount:''}} Watching Now</span>
-                        </div>
-                        <LikeDislike :stat="videoDetails.statistics"/>
+        <Loader v-if="pageLoading"></Loader>
+
+        <section class="video-detail-inner" v-if="!pageLoading">
+            <div class="video-frame">
+                <iframe width="420" height="315"
+                :src="'https://www.youtube.com/embed/'+this.id">
+                </iframe>
+            </div>
+            <div class="video-frame-details">
+                <div class="top">
+                    <div v-if="videoDetails.snippet.title">
+                        <h2>{{videoDetails.snippet.title != 'NULL' ? videoDetails.snippet.title : '' }}</h2>
+                        <span class="base">{{videoDetails.statistics.viewCount != 'NULL' ? videoDetails.statistics.viewCount:''}} Watching Now</span>
                     </div>
-                    <div class="bottom">
-                        <img class="avatar" :src="videoDetails.snippet.thumbnails.default.url">
-                        <router-link class="channel-info" :to="'channel/'+videoDetails.snippet.channelId">
-                            <h2>{{videoDetails.snippet.channelTitle != 'NULL' ? videoDetails.snippet.channelTitle:'undefined'}}</h2>
-                            <span class="base">published at {{videoDetails.snippet.publishedAt | moment(" Do MMM  YYYY")}}</span>
-                        </router-link>
-                    </div>
+                    <LikeDislike :stat="videoDetails.statistics"/>
                 </div>
-            </section>
-            <RelatedVideos :apiKey="apiKey" :videoId="id" :smScreen="smScreen"/>
+                <div class="bottom">
+                    <img class="avatar" :src="videoDetails.snippet.thumbnails.default.url">
+                    <router-link class="channel-info" :to="'channel/'+videoDetails.snippet.channelId" replace>
+                        <h2>{{videoDetails.snippet.channelTitle != 'NULL' ? videoDetails.snippet.channelTitle:'undefined'}}</h2>
+                        <span class="base">published at {{videoDetails.snippet.publishedAt | moment(" Do MMM  YYYY")}}</span>
+                    </router-link>
+                </div>
+            </div>
+        </section>
+
+        <RelatedVideos :apiKey="apiKey" :videoId="id" :smScreen="smScreen" v-if="!pageLoading"/>
     </div>
 </template>
 
 <script>
 import LikeDislike from '../components/counters/LikeDislike.vue';
 import RelatedVideos from '../components/video/RelatedVideos.vue';
+import Loader from '../components/layout/Loader.vue';
 
 export default {
   name: 'VideoDetails',
@@ -37,18 +41,22 @@ export default {
   components: {
     RelatedVideos,
     LikeDislike,
+    Loader
   },
   data(){
       return{
           apiKey:this.$store.state.apiKey,
           videoDetails:'',
+          pageLoading:false
       }
   },
   methods:{
       getVideoDetails(){
+          this.pageLoading=true;
         const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${this.id}&key=${this.apiKey}`;
-            this.axios.get(url).then(res=>
+            this.axios.get(url).then(res=>{
             this.videoDetails=res.data.items[0]
+            this.pageLoading=false}
             ).catch(err=>console.log(err))
       }
   },

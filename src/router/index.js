@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import Search from "../views/Search.vue";
 import VideoDetails from "../views/VideoDetails.vue";
 import ChannelDetails from "../views/ChannelDetails.vue";
+import PlayListDetails from "../views/PlayListDetails.vue";
+
 
 
 Vue.use(VueRouter);
@@ -26,7 +28,15 @@ const routes = [
     component: ChannelDetails,
     props:true,
 
+  },
+  {
+    path: "/playlist/:id",
+    name: "PlayListDetails",
+    component: PlayListDetails,
+    props:true,
+
   }
+
 
 ];
 

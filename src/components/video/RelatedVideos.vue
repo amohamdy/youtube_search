@@ -1,10 +1,11 @@
 <template>
     <section id="related-videos">
         <VideoCard v-for="item in relatedVideos" :key="item.index" :item="item"/>
-            <button v-if="relatedVideos.length<totalResults && smScreen" @click="loadMoreResults ">
+        <LoadMoreButton :loadMore="loadMore" :smScreen="smScreen" :totalResults="totalResults" :dataItems="relatedVideos" @load-more="loadMoreResults"></LoadMoreButton>
+            <!-- <button v-if="relatedVideos.length<totalResults && smScreen" @click="loadMoreResults ">
               <span v-if="!loadMore">Show more items</span>
               <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
-            </button>
+            </button> -->
         <Loader v-if="loadMore && !smScreen" :loadMore="loadMore"></Loader>
 
     </section>
@@ -14,10 +15,14 @@
 <script>
     import VideoCard from './VideoCard.vue';
     import Loader from '../layout/Loader.vue';
+    import LoadMoreButton from '../layout/LoadMoreButton.vue';
+
     export default{
         components:{
             VideoCard,
-            Loader
+            Loader,
+            LoadMoreButton
+
         },
         props:['apiKey', 'videoId', 'smScreen'],
         data(){
@@ -69,16 +74,7 @@
     section{
         margin-top:16px;
 
-    button{
-      position: absolute;
-      bottom:0;
-      left:0;
-      height: 3rem;
-      border:0;
-      width:100%;
-      cursor: pointer;
-      box-shadow:0.10rem 0.10rem rgba(0, 0, 0, 0.075);
-    }
+
     }
 
 </style>

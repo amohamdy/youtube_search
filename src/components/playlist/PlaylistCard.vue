@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="'/video/'+item.id.videoId" class="card" id="playlist-card">
+  <router-link :to="'/playlist/'+item.id" class="card" id="playlist-card" replace>
     <div class="card__media">
         <img  :src="item.snippet.thumbnails.high.url"
         alt="YouTube thumbnail">

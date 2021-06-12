@@ -9,10 +9,13 @@
                 <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
                 <ChannelCard :item="item" v-else></ChannelCard>
             </article>
-          <button v-if="searchResultItems.length<totalResults && !pageLoading && smScreen" @click="loadMoreResults">
+          <!-- <button v-if="searchResultItems.length<totalResults && !pageLoading && smScreen" @click="loadMoreResults">
               <span v-if="!loadMore">Show more items</span>
               <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
-          </button>
+          </button> -->
+
+          <LoadMoreButton :loadMore="loadMore" :smScreen="smScreen" :totalResults="totalResults" :dataItems="searchResultItems" @load-more="loadMoreResults"></LoadMoreButton>
+
           <Loader v-if="loadMore && !smScreen" :loadMore="loadMore"></Loader>
 
 
@@ -29,6 +32,8 @@
   import generalMixin from "../../mixins/generalMixin";
   import FilterComponent from './FilterComponent.vue';
   import Loader from '../layout/Loader.vue';
+  import LoadMoreButton from '../layout/LoadMoreButton.vue';
+
 
 
   export default {
@@ -37,7 +42,8 @@
       VideoCard,
       ChannelCard,
       FilterComponent,
-      Loader
+      Loader,
+      LoadMoreButton
     },
     data() {
       return {
