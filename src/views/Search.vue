@@ -1,7 +1,7 @@
 <template>
   <section class="content-wrapper"  id="search-result">
-    <Loader v-if="pageLoading"></Loader>
-    <SearchResults  :class="{'isLoading':pageLoading}"  v-if="!pageLoading"/>
+    <!-- <Loader v-if="pageLoading && smScreen"></Loader> -->
+    <SearchResults />
 
   </section>
 </template>
@@ -28,9 +28,13 @@ import Loader from '../components/layout/Loader.vue';
 
 <style lang="scss" scoped>
   @import '../scss/mixins.scss';
-    .isLoading{
-      @include display-flex(row,center,center);
-    }
+  #search-result{
+    @include display-flex(column,flex-start,flex-start);
+  }
+
+  .isLoading{
+    @include display-flex(row,center,center);
+  }
 </style>
 
 

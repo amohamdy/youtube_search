@@ -19,6 +19,7 @@ export default{
             var url = `https://www.googleapis.com/youtube/v3/search?&q=${this.searchText}&maxResults=5&part=snippet&key=${this.apiKey}&type=${this.type}`;
           }
             this.axios.get(url).then((res) => {
+              console.log(res.data)
 
             this.$store.commit("setSearchResults", res.data);
             this.$store.commit("setPageLoadingStatus", false);

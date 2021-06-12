@@ -32,57 +32,57 @@
             <ul>
                 <li>Type</li>
                 <li>
-                    <input type="radio" id="jack" value="video" v-model="type" @change='commitTypeValue'>
-                    <label for="jack">video</label>
+                    <input type="radio" id="video" value="video" v-model="type" @change='commitTypeValue'>
+                    <label for="video">video</label>
                 </li>
                 <li>
-                    <input type="radio" id="john" value="channel" v-model="type" @change='commitTypeValue'>
-                    <label for="john">channel</label>
+                    <input type="radio" id="channel" value="channel" v-model="type" @change='commitTypeValue'>
+                    <label for="channel">channel</label>
                 </li>
                 <li>
-                    <input type="radio" id="mike" value="playlist" v-model="type" @change='commitTypeValue'>
-                    <label for="mike">playlist</label>
+                    <input type="radio" id="playlist" value="playlist" v-model="type" @change='commitTypeValue'>
+                    <label for="playlist">playlist</label>
 
                 </li>
             </ul>
             <ul>
                 <li>Date</li>
                 <li>
-                    <input type="radio" id="jack" value="last hour" v-model="date" @change='commitDateValue'>
-                    <label for="jack">last hour</label>
+                    <input type="radio" id="lastHour" value="lastHour" v-model="date" @change='commitDateValue'>
+                    <label for="lastHour">last hour</label>
                 </li>
                 <li>
-                    <input type="radio" id="john" value="today" v-model="date" @change='commitDateValue'>
-                    <label for="john">today</label>
+                    <input type="radio" id="today" value="today" v-model="date" @change='commitDateValue'>
+                    <label for="today">today</label>
                 </li>
                 <li>
-                    <input type="radio" id="mike" value="this week" v-model="date" @change='commitDateValue'>
-                    <label for="mike">this week</label>
+                    <input type="radio" id="thisWeek" value="thisWeek" v-model="date" @change='commitDateValue'>
+                    <label for="thisWeek">this week</label>
 
                 </li>
                  <li>
-                    <input type="radio" id="mike" value="this month" v-model="date" @change='commitDateValue'>
-                    <label for="mike">this month</label>
+                    <input type="radio" id="thisMonth" value="thisMonth" v-model="date" @change='commitDateValue'>
+                    <label for="thisMonth">this month</label>
 
                 </li>
             </ul>
             <ul>
                 <li>Sort By</li>
                 <li>
-                    <input type="radio" id="jack" value="relevance" v-model="order" @change='commitOrderValue'>
-                    <label for="jack">relevance</label>
+                    <input type="radio" id="relevance" value="relevance" v-model="order" @change='commitOrderValue'>
+                    <label for="relevance">relevance</label>
                 </li>
                 <li>
-                    <input type="radio" id="john" value="date" v-model="order" @change='commitOrderValue'>
-                    <label for="john">upload date</label>
+                    <input type="radio" id="date" value="date" v-model="order" @change='commitOrderValue'>
+                    <label for="date">upload date</label>
                 </li>
                 <li>
-                    <input type="radio" id="mike" value="viewCount" v-model="order" @change='commitOrderValue'>
-                    <label for="mike">view count</label>
+                    <input type="radio" id="viewCount" value="viewCount" v-model="order" @change='commitOrderValue'>
+                    <label for="viewCount">view count</label>
                 </li>
                 <li>
-                    <input type="radio" id="mike" value="rating" v-model="order" @change='commitOrderValue'>
-                    <label for="mike">rating</label>
+                    <input type="radio" id="rating" value="rating" v-model="order" @change='commitOrderValue'>
+                    <label for="rating">rating</label>
                 </li>
             </ul>
 
@@ -131,8 +131,9 @@
   @import '../../scss/mixins.scss';
   @import '../../scss/variables.scss';
 
-
-    .filters{
+.filter-wrapper{
+    width:100%;
+     .filters{
         padding-bottom:1.5rem;
         @media screen and (min-width:768px){
             padding-bottom:0;
@@ -143,7 +144,7 @@
         padding-inline: 16px;
         margin-left:16px;
     }
-        .top{
+    .top{
         @include display-flex(row,space-between,center);
         padding: 1rem;
         width:70%;
@@ -169,6 +170,9 @@
         @include display-flex(row,space-between,center);
         ul{
             li{
+                // input{
+                //     display:none
+                // }
                 &:first-of-type{
                     margin-bottom:16px;
                     font-weight:bold
@@ -178,6 +182,11 @@
             }
         }
     }
+
+
+
+}
+
 
 
 </style>

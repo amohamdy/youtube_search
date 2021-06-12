@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="'/video/'+item.id.videoId" class="card">
+  <router-link :to="'/video/'+item.id.videoId" class="card" id="video-card">
     <div class="card__media">
         <img  :src="item.snippet.thumbnails.high.url"
         alt="YouTube thumbnail">
@@ -8,7 +8,7 @@
     <div class="card__content">
           <h2>{{item.snippet.title!='NULL'?item.snippet.title:''}}</h2>
           <div>
-            <router-link :to="'/channel/'+item.snippet.channelId">
+            <router-link :to="'/channel/'+item.snippet.channelId" class="channel-title">
                 {{item.snippet.channelTitle !='NULL'?item.snippet.channelTitle:''}}
             </router-link>
             <span>

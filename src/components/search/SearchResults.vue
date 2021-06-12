@@ -2,7 +2,7 @@
     <div class="content-wrapper content-wrapper__inner" >
       <filterComponent :smScreen="smScreen" :total-results="totalResults"/>
 
-        <div class="search-results">
+        <div class="search-results" v-if="searchResultItems">
             <article v-for="item in searchResultItems" :key="item.index">
                 <VideoCard :item="item" v-if="item.id.kind.split('#')[1] == 'video'"></VideoCard>
                 <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
@@ -116,6 +116,11 @@
 </script>
 
 <style  lang="scss" scoped>
+  @import '../../scss/mixins.scss';
+  .content-wrapper,.search-results{
+    width:100%;
+  }
+
     button{
       position: absolute;
       bottom:0;

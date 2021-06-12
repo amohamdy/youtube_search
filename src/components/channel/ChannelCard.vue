@@ -1,5 +1,5 @@
 <template>
-    <router-link class="card channel" :to="'/channel/'+item.snippet.channelId">
+    <router-link class="card channel" :to="'/channel/'+item.snippet.channelId" id="channel-card">
 
     <div class="card__media">
         <img :src="item.snippet.thumbnails.high.url"
@@ -10,10 +10,11 @@
         <h2>
             {{item.snippet.channelTitle !='NULL'?item.snippet.channelTitle:''}}
         </h2>
-        <span class="meta views">26k views</span>
-        <span class="meta published">
+        <span class="meta meta--views">26k views</span>
+        <span class="meta meta--published">
         {{item.snippet.publishedAt | moment(" Do MMM  YYYY")}}
         </span>
+        <p>{{item.snippet.description}}</p>
 
     </div>
   </router-link>
