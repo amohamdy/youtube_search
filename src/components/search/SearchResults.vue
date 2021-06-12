@@ -9,10 +9,13 @@
                 <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
                 <ChannelCard :item="item" v-else></ChannelCard>
             </article>
-          <button v-if="searchResultItems.length<totalResults && !pageLoading &&smScreen" @click="loadMoreResults">
+          <button v-if="searchResultItems.length<totalResults && !pageLoading && smScreen" @click="loadMoreResults">
               <span v-if="!loadMore">Show more items</span>
               <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
           </button>
+          <Loader v-if="loadMore && !smScreen" :loadMore="loadMore"></Loader>
+
+
       </div>
     </div>
 
@@ -26,9 +29,6 @@
   import generalMixin from "../../mixins/generalMixin";
   import FilterComponent from './FilterComponent.vue';
   import Loader from '../layout/Loader.vue';
-
-
-
 
 
   export default {
@@ -46,16 +46,20 @@
         totalResults:null,
         searchResultItems:'',
         apiKey:this.$store.state.apiKey,
-        // pageLoading:null,
-        smScreen:'',
-        windowWidth:window.innerWidth,
-
       };
     },
 
     methods: {
 
+      LoadMoreLgScreen(){
+          const scrolled_item = document.getElementById('app');
+          scrolled_item.addEventListener('scroll', e => {
+          if(scrolled_item.scrollTop + scrolled_item.clientHeight >= scrolled_item.scrollHeight) {
+            this.loadMoreResults()
 
+          }
+        });
+      },
       // load more items
       loadMoreResults(){
         this.loadMore=true;
@@ -75,6 +79,7 @@
 
       }
     },
+    props:['smScreen'],
 
     computed:{
       searchText(){
@@ -91,13 +96,10 @@
       },
       pageLoading(){
         return this.$store.state.pageLoading;
-
       }
-
     },
 
-     mixins: [generalMixin],
-
+    mixins: [generalMixin],
 
     watch:{
       allSearchResults:{
@@ -113,13 +115,13 @@
         handler:'getAllSearchResults',
         deep:true
       },
-      windowWidth:{
-      handler:'checkWindowSize',
-      immediate:true
     },
+    created(){
+      if(!this.smScreen){
+        this.LoadMoreLgScreen()
+
+      }
     }
-
-
 
   };
 </script>

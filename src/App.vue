@@ -1,8 +1,8 @@
 <template>
   <main class="container-fluid" id="app">
-    <Header/>
+    <Header :smScreen="smScreen"/>
     <div class="container-fluid__inner" id="main-wrapper">
-    <router-view :key="$route.fullPath"/>
+    <router-view :key="$route.fullPath" :smScreen="smScreen"/>
 
     </div>
   </main>
@@ -48,6 +48,27 @@ export default {
   {
     Header,
   },
+  data(){
+    return{
+      smScreen:'',
+      windowWidth:window.innerWidth,
+    }
+  },
+  methods:{
+    checkWindowSize(){
+      if(this.windowWidth > 768){
+        this.smScreen = false;
+      }else{
+        this.smScreen=true
+      }
+    },
+  },
+  watch:{
+      windowWidth:{
+      handler:'checkWindowSize',
+      immediate:true
+    },
+  }
 
 };
 </script>

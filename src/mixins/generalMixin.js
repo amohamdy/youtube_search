@@ -1,12 +1,6 @@
 export default{
     methods:{
-      checkWindowSize(){
-            if(this.windowWidth > 768){
-              this.smScreen = false;
-            }else{
-              this.smScreen=true
-            }
-        },
+
         getAllSearchResults() {
           this.$store.commit("setPageLoadingStatus", true);
           if(this.$router.currentRoute.path != '/'){
@@ -26,5 +20,6 @@ export default{
 
           }).catch(err=>console.log(err))
         },
+
     }
 }

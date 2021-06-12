@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </section>
-            <RelatedVideos :apiKey="apiKey" :videoId="id"/>
+            <RelatedVideos :apiKey="apiKey" :videoId="id" :smScreen="smScreen"/>
     </div>
 </template>
 
@@ -33,7 +33,7 @@ import RelatedVideos from '../components/video/RelatedVideos.vue';
 
 export default {
   name: 'VideoDetails',
-  props:['id'],
+  props:['id', 'smScreen'],
   components: {
     RelatedVideos,
     LikeDislike,
@@ -56,13 +56,6 @@ export default {
       this.getVideoDetails()
   },
 
-
-//     watch: {
-//     $route(to, from){
-//         this.getVideoDetails();
-//       // react to route changes...
-//     }
-//   }
 
 };
 </script>

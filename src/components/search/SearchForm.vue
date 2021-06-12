@@ -25,13 +25,12 @@
 export default {
   name: 'SearchForm',
 
-  props: ['totalResult'],
+  props: ['totalResult', 'smScreen'],
   data() {
     return {
       searchText: '',
       isShow: '',
       windowWidth:window.innerWidth,
-      smScreen:'',
 
     };
   },
@@ -45,14 +44,6 @@ export default {
 
   },
   mixins: [generalMixin],
-
-  watch:{
-    windowWidth:{
-      handler:'checkWindowSize',
-      immediate:true
-    },
-
-  },
 
 };
 </script>

@@ -3,8 +3,7 @@
       <div class="main-nav__inner">
         <img alt="YouTybe logo" class="yTube-logo" src="../../assets/YouTube.png">
         <img alt="YouTybe logo" class="yTube-logo--white" src="../../assets/Daco_492.png">
-
-        <SearchForm @submit-form="getAllSearchResults" ></SearchForm>
+        <SearchForm @submit-form="getAllSearchResults" :smScreen="smScreen"></SearchForm>
       </div>
     </nav>
 
@@ -31,6 +30,8 @@
       }
     },
     mixins: [generalMixin],
+    props:['smScreen']
+
 
   }
 
