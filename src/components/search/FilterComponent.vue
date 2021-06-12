@@ -1,6 +1,6 @@
 <template>
 <div class="filter-wrapper">
-    <div class="filters" v-if="smScreen && totalResults">
+    <div class="filters" v-if="smScreen">
 
         <select v-model="type" @change="commitTypeValue">
             <option disabled value="">Type</option>
@@ -20,7 +20,7 @@
 
 
     </div>
-     <div class="filters" v-if="!smScreen && totalResults">
+     <div class="filters" v-if="!smScreen">
         <div class="top">
             <h4>About {{totalResults}} Results</h4>
             <a @click="toggle">

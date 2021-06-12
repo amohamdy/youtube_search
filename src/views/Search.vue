@@ -1,6 +1,5 @@
 <template>
   <section class="content-wrapper"  id="search-result">
-    <!-- <Loader v-if="pageLoading && smScreen"></Loader> -->
     <SearchResults />
 
   </section>
@@ -8,20 +7,14 @@
 
 <script>
 import SearchResults from '../components/search/SearchResults.vue';
-import Loader from '../components/layout/Loader.vue';
 
   export default{
     components:{
       SearchResults,
-      Loader,
 
     },
 
-    computed:{
-      pageLoading(){
-        return this.$store.state.pageLoading
-      },
-    },
+
   }
 </script>
 

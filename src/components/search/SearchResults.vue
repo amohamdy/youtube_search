@@ -1,8 +1,9 @@
 <template>
     <div class="content-wrapper content-wrapper__inner" >
-      <filterComponent :smScreen="smScreen" :total-results="totalResults"/>
+      <filterComponent :smScreen="smScreen" :total-results="totalResults" v-if="totalResults"/>
 
-        <div class="search-results" v-if="searchResultItems">
+        <Loader v-if="pageLoading && !searchResultItems"></Loader>
+        <div class="search-results" v-if="searchResultItems && !pageLoading">
             <article v-for="item in searchResultItems" :key="item.index">
                 <VideoCard :item="item" v-if="item.id.kind.split('#')[1] == 'video'"></VideoCard>
                 <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
@@ -24,6 +25,9 @@
   import ChannelCard from '../channel/ChannelCard.vue';
   import generalMixin from "../../mixins/generalMixin";
   import FilterComponent from './FilterComponent.vue';
+  import Loader from '../layout/Loader.vue';
+
+
 
 
 
@@ -32,7 +36,8 @@
       PlaylistCard,
       VideoCard,
       ChannelCard,
-      FilterComponent
+      FilterComponent,
+      Loader
     },
     data() {
       return {
@@ -41,7 +46,7 @@
         totalResults:null,
         searchResultItems:'',
         apiKey:this.$store.state.apiKey,
-        pageLoading:null,
+        // pageLoading:null,
         smScreen:'',
         windowWidth:window.innerWidth,
 
@@ -65,7 +70,6 @@
           this.searchResultItems = this.$store.state.allSearchResults.items
           this.totalResults = this.$store.state.allSearchResults.pageInfo.totalResults;
           this.nextPage = this.$store.state.allSearchResults.nextPageToken;
-          this.pageLoading = this.$store.state.pageLoading;
           console.log('hello')
         }
 
@@ -84,7 +88,12 @@
       },
       order(){
         return this.$store.state.orderFilter
+      },
+      pageLoading(){
+        return this.$store.state.pageLoading;
+
       }
+
     },
 
      mixins: [generalMixin],
