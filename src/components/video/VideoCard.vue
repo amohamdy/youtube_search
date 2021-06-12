@@ -8,7 +8,7 @@
     <div class="card__content">
           <h2>{{item.snippet.title!='NULL'?item.snippet.title:''}}</h2>
           <div>
-            <router-link :to="'/channel/'+item.snippet.channelId" class="channel-title">
+            <router-link :to="'/channel/'+item.snippet.channelId" class="channel-title" replace>
                 {{item.snippet.channelTitle !='NULL'?item.snippet.channelTitle:''}}
             </router-link>
             <span>
