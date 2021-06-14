@@ -62,10 +62,15 @@
                 this.nextPage=res.data.nextPageToken;
                 console.log(res.data)
                 }).catch(err=>console.log(err));
-            this.LoadMoreLgScreen();
+            },
+        mounted(){
+            if(!this.smScreen){
+                this.LoadMoreLgScreen();
 
             }
-    }
+
+        }
+        }
 
 </script>
 

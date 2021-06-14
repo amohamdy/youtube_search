@@ -25,7 +25,7 @@
 export default {
   name: 'SearchForm',
 
-  props: ['totalResult', 'smScreen'],
+  props: ['smScreen'],
   data() {
     return {
       searchText: '',

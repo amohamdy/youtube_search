@@ -1,7 +1,7 @@
 <template>
     <section id="playlist-details">
         <article v-for="item in playlistItems" :key="item.index">
-            <VideoCard :item="item" ></VideoCard>
+            <VideoCard :item="item"  playList="true"></VideoCard>
         </article>
 
 
@@ -59,6 +59,11 @@
                 this.totalResults=res.data.pageInfo.totalResults;
                 }).catch(err=>console.log(err))
             },
+        mounted(){
+            if(!this.smScreen){
+                this.LoadMoreLgScreen();
+            }
+        }
     }
 
     </script>

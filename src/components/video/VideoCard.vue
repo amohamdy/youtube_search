@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="'/video/'+item.id.videoId" class="card" id="video-card">
+  <router-link :to="!playList?'/video/'+item.id.videoId:'/video/'+item.snippet.resourceId.videoId" class="card" id="video-card">
     <div class="card__media">
         <img  :src="item.snippet.thumbnails.high.url"
         alt="YouTube thumbnail">
@@ -24,7 +24,7 @@
 
 <script>
 export default {
-  props: ['item'],
+  props: ['item', 'playList'],
 };
 </script>
 

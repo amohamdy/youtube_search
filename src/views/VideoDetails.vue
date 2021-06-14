@@ -18,7 +18,7 @@
                 </div>
                 <div class="bottom">
                     <img class="avatar" :src="videoDetails.snippet.thumbnails.default.url">
-                    <router-link class="channel-info" :to="'channel/'+videoDetails.snippet.channelId" replace>
+                    <router-link class="channel-info" :to="'/channel/'+videoDetails.snippet.channelId" replace>
                         <h2>{{videoDetails.snippet.channelTitle != 'NULL' ? videoDetails.snippet.channelTitle:'undefined'}}</h2>
                         <span class="base">published at {{videoDetails.snippet.publishedAt | moment(" Do MMM  YYYY")}}</span>
                     </router-link>
@@ -51,14 +51,14 @@ export default {
       }
   },
   methods:{
-      getVideoDetails(){
+        getVideoDetails(){
           this.pageLoading=true;
-        const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${this.id}&key=${this.apiKey}`;
-            this.axios.get(url).then(res=>{
-            this.videoDetails=res.data.items[0]
-            this.pageLoading=false}
-            ).catch(err=>console.log(err))
-      }
+            const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${this.id}&key=${this.apiKey}`;
+                this.axios.get(url).then(res=>{
+                this.videoDetails=res.data.items[0]
+                this.pageLoading=false
+                }).catch(err=>console.log(err))
+        }
   },
   created(){
       this.getVideoDetails()
@@ -103,7 +103,7 @@ export default {
         text-align: left;
         @media screen and (min-width:768px){
             flex-direction: row;
-            justify-content: flex-start;
+            justify-content: space-between;
         }
 
 

@@ -32,15 +32,15 @@
             <ul>
                 <li>Type</li>
                 <li>
-                    <input type="radio" id="video" value="video" v-model="type" @change='commitTypeValue'>
+                    <input type="checkbox" id="video" value="video" v-model="type" @change='commitTypeValue'>
                     <label for="video">video</label>
                 </li>
                 <li>
-                    <input type="radio" id="channel" value="channel" v-model="type" @change='commitTypeValue'>
+                    <input type="checkbox" id="channel" value="channel" v-model="type" @change='commitTypeValue'>
                     <label for="channel">channel</label>
                 </li>
                 <li>
-                    <input type="radio" id="playlist" value="playlist" v-model="type" @change='commitTypeValue'>
+                    <input type="checkbox" id="playlist" value="playlist" v-model="type" @change='commitTypeValue'>
                     <label for="playlist">playlist</label>
 
                 </li>
@@ -99,7 +99,7 @@
     export default{
         data(){
             return{
-                type:'',
+                type:[],
                 date:'',
                 filterShow:false,
                 order:''

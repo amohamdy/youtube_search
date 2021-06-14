@@ -1,24 +1,17 @@
 <template>
     <div class="content-wrapper content-wrapper__inner" >
       <filterComponent :smScreen="smScreen" :total-results="totalResults" v-if="totalResults"/>
+      <Loader v-if="pageLoading && !searchResultItems"></Loader>
 
-        <Loader v-if="pageLoading && !searchResultItems"></Loader>
         <div class="search-results" v-if="searchResultItems && !pageLoading">
             <article v-for="item in searchResultItems" :key="item.index">
                 <VideoCard :item="item" v-if="item.id.kind.split('#')[1] == 'video'"></VideoCard>
                 <PlaylistCard :item="item" v-else-if="item.id.kind.split('#')[1] == 'playlist'"></PlaylistCard>
                 <ChannelCard :item="item" v-else></ChannelCard>
             </article>
-          <!-- <button v-if="searchResultItems.length<totalResults && !pageLoading && smScreen" @click="loadMoreResults">
-              <span v-if="!loadMore">Show more items</span>
-              <Loader v-if="loadMore" :loadMore="loadMore"></Loader>
-          </button> -->
 
           <LoadMoreButton :loadMore="loadMore" :smScreen="smScreen" :totalResults="totalResults" :dataItems="searchResultItems" @load-more="loadMoreResults"></LoadMoreButton>
-
           <Loader v-if="loadMore && !smScreen" :loadMore="loadMore"></Loader>
-
-
       </div>
     </div>
 
@@ -122,10 +115,9 @@
         deep:true
       },
     },
-    created(){
+    mounted(){
       if(!this.smScreen){
         this.LoadMoreLgScreen()
-
       }
     }
 

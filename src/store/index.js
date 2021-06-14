@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     searchText: null,
-    apiKey:'AIzaSyAV9QB6U-fWmof74zSqNOaNTo_itvkV_4I',
+    apiKey:'AIzaSyA_p7BYgDkYWBMEEeH5J5tWJ0ZXwbok7Ek',
     pageLoading:false,
     allSearchResults:'',
     typeFilter:null,
