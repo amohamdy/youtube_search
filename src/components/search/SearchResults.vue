@@ -1,5 +1,5 @@
 <template>
-    <div class="content-wrapper content-wrapper__inner" >
+    <div class="content-wrapper content-wrapper__inner">
       <filterComponent :smScreen="smScreen" :total-results="totalResults" v-if="totalResults"/>
       <Loader v-if="pageLoading && !searchResultItems"></Loader>
 
