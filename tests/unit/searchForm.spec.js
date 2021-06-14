@@ -11,7 +11,7 @@ wrapper.setMethods({
     submitForm:submitForm
 })
 
-describe("if search button trigger a function", () => {
+describe("cehck if search button already exist", () => {
     it("check if button already exist", () => {
         expect( wrapper.find('.search-btn').exists()).toBe(true)
     });
