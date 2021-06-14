@@ -13,6 +13,7 @@
 
 <script>
     import VideoCard from '../components/video/VideoCard.vue';
+    import Loader from '../components/layout/Loader.vue';
     import LoadMoreButton from '../components/layout/LoadMoreButton.vue';
 
     export default{
@@ -27,7 +28,7 @@
             }
         },
         components:{
-            VideoCard,LoadMoreButton
+            VideoCard,LoadMoreButton, Loader
         },
         methods:{
             LoadMoreLgScreen(){
