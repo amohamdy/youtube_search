@@ -68,6 +68,11 @@ export default {
       handler:'checkWindowSize',
       immediate:true
     },
+  },
+   mounted() {
+      window.onresize = () => {
+          this.windowWidth = window.innerWidth
+      }
   }
 
 };
